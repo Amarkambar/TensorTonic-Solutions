@@ -1,20 +1,20 @@
 import numpy as np
 
-def focal_loss(p, y, gamma=2.0, eps=1e-9):
-    # Convert to numpy arrays FIRST
+def focal_loss(p, y, gamma=2.0):
+    """
+    Compute Focal Loss for binary classification.
+    """
+    # Write code here
     p = np.array(p)
     y = np.array(y)
 
-    # Avoid log(0)
-    p = np.clip(p, eps, 1 - eps)
+    loss_pos = -y * (1 - p) ** gamma * np.log(p)
+    loss_neg = -(1 - y) * (p ** gamma) * np.log(1 - p)
 
-    # Correct class probability
-    pt = y * p + (1 - y) * (1 - p)
-
-    # Focal loss
-    loss = -(1 - pt) ** gamma * np.log(pt)
+    loss = loss_pos + loss_neg
 
     return np.mean(loss)
 
 
-print(focal_loss([0.9, 0.2, 0.7, 0.1],[1, 0, 1, 0]))
+# Test
+print(focal_loss([0.9, 0.2, 0.7, 0.1], [1, 0, 1, 0]))
