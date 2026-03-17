@@ -8,10 +8,12 @@ def focal_loss(p, y, gamma=2.0):
     p = np.array(p)
     y = np.array(y)
 
-    loss_pos = -y * (1 - p) ** gamma * np.log(p)
-    loss_neg = -(1 - y) * (p ** gamma) * np.log(1 - p)
+    loss_pos = -y * (1 - p) ** gamma * np.log(p)  # 0r term1 = (1-p)**gamma * y * np.log() 
+    loss_neg = -(1 - y) * (p ** gamma) * np.log(1 - p) #0r term2 = (p**gamma * (1-y) * np.log()
 
-    loss = loss_pos + loss_neg
+    
+
+    loss = loss_pos + loss_neg # -(term1 + term2)
 
     return np.mean(loss)
 
